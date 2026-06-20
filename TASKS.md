@@ -430,6 +430,31 @@
 - [x] Не менять контакты, бренд, логику portfolio, количество кейсов, backend/API/dependencies/forms.
 - [x] Не возвращать WhatsApp/Instagram.
 
+## Stage 4.29 — Production Portfolio Regression Fix
+
+- [x] Выполнить диагностику `pwd`, `git status`, `git branch --show-current`, `git remote -v`, `git log --oneline -5`.
+- [x] Подтвердить рабочую папку `C:\Users\Утка\Desktop\СтройКИД`.
+- [x] Подтвердить branch `main`.
+- [x] Подтвердить remote `https://github.com/dzeksonm378-afk/industria-landing.git`.
+- [x] Проверить `PortfolioSection.tsx`, `siteContent.ts`, `caseStudies.ts` и `src/app/works/[slug]/page.tsx`.
+- [x] Подтвердить, что `PortfolioSection` рендерит только `caseStudies`.
+- [x] Удалить старый массив из 6 одиночных portfolio photo cards из `siteContent.portfolio`.
+- [x] Подтвердить, что `caseStudies` содержит 3 кейса: `building-demolition`, `industrial-height-demolition`, `private-houses-demolition`.
+- [x] Проверить, что image paths case studies существуют в `public/images/cases/`.
+- [x] Проверить страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition`.
+- [x] Проверить локально, что на главной portfolio содержит 3 object cards и не содержит старые 6 cards.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Запустить `npm run dev` и проверить `/`, `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` 200.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Обновить README.md и TASKS.md.
+- [x] Сделать commit `Fix production portfolio to object case cards`.
+- [x] Запушить изменения в `origin/main` для Vercel auto-deploy.
+- [x] Проверить production `/` и `/works/...` после deploy через HTTP/HTML smoke.
+- [x] Не менять глобальный дизайн, бренд, контакты, логотипы, backend/API/dependencies/forms.
+- [x] Не возвращать WhatsApp/Instagram.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.
