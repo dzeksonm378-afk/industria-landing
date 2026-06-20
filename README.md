@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21 и Stage 4.24:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24 и Stage 4.26:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -88,6 +88,11 @@
 - добавлен global anchor offset для `section[id]` и `#photo-estimate`, чтобы заголовки не уходили под sticky Header;
 - mobile QA выполнен на уровне responsive code review для Header, Hero, Services, Materials, Portfolio, Process, About, FAQ, Final CTA и Footer;
 - проект проверен перед GitHub/Vercel deploy: build/lint/security pass, API routes/backend/forms submit не добавлялись.
+- выполнен Stage 4.26 Telegram contact buttons clarity fix;
+- Telegram-ссылки в contact-card и CTA визуально уточнены: показывают действие, слово Telegram, handle и внешний переход;
+- phone CTA уточнены: кнопки показывают действие "Позвонить" и номер мелким текстом;
+- final CTA обновлен на "Отправить фото в Telegram" и "Уточнить стоимость в Telegram";
+- WhatsApp/Instagram не возвращались, backend/API/forms/dependencies не добавлялись.
 
 ## Стек
 
@@ -122,7 +127,7 @@ npm run build
 
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
-Stage 4.24 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, `npm run dev` поднят на `http://localhost:3000`, главная страница отвечает HTTP 200.
+Stage 4.26 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, `npm run dev` поднят на `http://localhost:3000`, главная страница отвечает HTTP 200.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 

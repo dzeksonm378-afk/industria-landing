@@ -343,6 +343,25 @@
 - [x] Зафиксировать, что автоматическая mobile browser-проверка недоступна: Chrome executable не найден в текущей среде.
 - [x] Не добавлять backend, API routes, базу данных, авторизацию, новые dependencies или реальные отправки форм.
 
+## Stage 4.26 — Telegram Contact Buttons Clarity Fix
+
+- [x] Проанализировать текущую структуру проекта перед изменениями.
+- [x] Оставить контакты централизованными в `src/data/siteContent.ts`.
+- [x] Добавить понятные Telegram/phone labels и aria labels для Ильи и Вадима.
+- [x] Обновить contact-card "Предварительный расчет по фото": Telegram-кнопки показывают действие, handle, TG badge и внешний переход.
+- [x] Обновить phone-кнопки в contact-card: действие "Позвонить" и номер мелким текстом.
+- [x] Обновить final CTA: "Отправить фото в Telegram" и "Уточнить стоимость в Telegram" ведут на реальную Telegram-ссылку Ильи.
+- [x] Добавить `target="_blank"` и `rel="noopener noreferrer"` для внешних Telegram-ссылок.
+- [x] Проверить mobile 390px на уровне responsive code review: кнопки не сжимаются, не вылезают и остаются удобными для нажатия.
+- [x] Проверить desktop regression на уровне code review: contact-card и final CTA сохранили premium black/gold стиль.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Запустить `npm run dev` и проверить `/` 200.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Не менять глобальный дизайн, Hero layout, portfolio, логотип, backend/API/dependencies/forms.
+- [x] Не возвращать WhatsApp/Instagram.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

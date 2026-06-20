@@ -14,14 +14,22 @@ const contactPeople = [
     name: "Илья",
     phone: "+7 931 250 40 60",
     phoneHref: "tel:+79312504060",
+    phoneButtonLabel: "Позвонить",
+    phoneAriaLabel: "Позвонить Илье",
     telegramLabel: "@nikitinilya08",
+    telegramButtonLabel: "Telegram Ильи",
+    telegramAriaLabel: "Написать Илье в Telegram",
     telegramUrl: "https://t.me/nikitinilya08",
   },
   {
     name: "Вадим",
     phone: "+7 969 714 38 92",
     phoneHref: "tel:+79697143892",
+    phoneButtonLabel: "Позвонить",
+    phoneAriaLabel: "Позвонить Вадиму",
     telegramLabel: "@Vadim_Yampolski",
+    telegramButtonLabel: "Telegram Вадима",
+    telegramAriaLabel: "Написать Вадиму в Telegram",
     telegramUrl: "https://t.me/Vadim_Yampolski",
   },
 ] as const;
@@ -388,8 +396,8 @@ export const siteContent = {
     title: "Нужно освободить объект под новый этап?",
     text:
       "Пришлите фото или видео объекта для предварительной оценки. Финальную стоимость уточним после осмотра и согласования состава работ.",
-    primaryCta: "Отправить фото объекта",
-    secondaryCta: "Уточнить стоимость",
+    primaryCta: "Отправить фото в Telegram",
+    secondaryCta: "Уточнить стоимость в Telegram",
   },
   footer: {
     description:

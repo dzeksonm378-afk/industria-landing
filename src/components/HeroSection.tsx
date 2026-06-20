@@ -109,17 +109,28 @@ export function HeroSection() {
                   <div className="mt-3 grid gap-2">
                     <a
                       href={person.telegramUrl}
-                      aria-label={`Написать в Telegram: ${person.name}`}
-                      className="inline-flex min-h-11 items-center justify-center rounded-md border border-gold-soft/70 bg-gold-soft px-4 py-3 text-center text-sm font-semibold text-ink shadow-gold-soft transition hover:border-gold hover:bg-gold"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={person.telegramAriaLabel}
+                      className="inline-flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-md border border-gold-soft/70 bg-gold-soft px-4 py-3 text-left text-sm font-semibold text-ink shadow-gold-soft transition hover:border-gold hover:bg-gold focus-visible:outline-gold-soft"
                     >
-                      Telegram
+                      <span className="min-w-0">
+                        <span className="block">{person.telegramButtonLabel} <span aria-hidden="true">↗</span></span>
+                        <span className="mt-0.5 block truncate text-xs font-semibold text-ink/70">{person.telegramLabel}</span>
+                      </span>
+                      <span className="rounded-sm border border-ink/20 bg-ink/10 px-2 py-1 text-xs uppercase text-ink/75" aria-hidden="true">
+                        TG
+                      </span>
                     </a>
                     <a
                       href={person.phoneHref}
-                      aria-label={`Позвонить: ${person.name}`}
-                      className="inline-flex min-h-11 items-center justify-center rounded-md border border-gold/45 bg-card-soft/80 px-4 py-3 text-center text-sm font-semibold text-mist transition hover:border-gold-soft hover:bg-gold/15"
+                      aria-label={person.phoneAriaLabel}
+                      className="inline-flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-md border border-gold/45 bg-card-soft/80 px-4 py-3 text-left text-sm font-semibold text-mist transition hover:border-gold-soft hover:bg-gold/15 focus-visible:outline-gold-soft"
                     >
-                      Позвонить
+                      <span className="min-w-0">
+                        <span className="block">{person.phoneButtonLabel}</span>
+                        <span className="mt-0.5 block truncate text-xs font-semibold text-silver/65">{person.phone}</span>
+                      </span>
                     </a>
                   </div>
                 </div>

@@ -34,8 +34,14 @@ export function Footer() {
                 <a className="mt-1 block transition hover:text-gold-soft" href={person.phoneHref}>
                   {person.phone}
                 </a>
-                <a className="mt-1 block transition hover:text-gold-soft" href={person.telegramUrl}>
-                  {person.telegramLabel}
+                <a
+                  className="mt-1 block transition hover:text-gold-soft"
+                  href={person.telegramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={person.telegramAriaLabel}
+                >
+                  Telegram: {person.telegramLabel}
                 </a>
               </div>
             ))}
