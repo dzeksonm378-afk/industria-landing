@@ -13,12 +13,12 @@ export function PortfolioSection() {
       description={siteContent.portfolio.description}
       className="border-y border-silver/5 bg-surface/55"
     >
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
         {caseStudies.map((caseStudy) => (
           <Link
             key={caseStudy.slug}
             href={`/works/${caseStudy.slug}`}
-            className="metal-card group flex flex-col overflow-hidden rounded-lg transition duration-200 hover:-translate-y-1 hover:border-gold/40 focus-visible:outline-gold-soft"
+            className="metal-card group flex h-full flex-col overflow-hidden rounded-lg transition duration-200 hover:-translate-y-1 hover:border-gold/40 focus-visible:outline-gold-soft"
           >
             <div className="relative aspect-[4/3] overflow-hidden border-b border-gold/15 bg-ink">
               <Image
@@ -52,9 +52,11 @@ export function PortfolioSection() {
                   </li>
                 ))}
               </ul>
-              <span className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-gold/45 bg-gold/10 px-4 py-3 text-sm font-semibold text-mist transition group-hover:border-gold-soft group-hover:bg-gold/15">
-                Смотреть объект
-              </span>
+              <div className="mt-auto pt-6">
+                <span className="inline-flex min-h-11 w-full items-center justify-center rounded-md border border-gold/45 bg-gold/10 px-4 py-3 text-sm font-semibold text-mist transition group-hover:border-gold-soft group-hover:bg-gold/15">
+                  Смотреть объект
+                </span>
+              </div>
             </div>
           </Link>
         ))}

@@ -57,6 +57,8 @@ export default function CaseStudyPage({ params }: CasePageProps) {
     notFound();
   }
 
+  const [featuredImage = caseStudy.coverImage, ...galleryImages] = caseStudy.images;
+
   return (
     <>
       <Header homeHrefPrefix="/" />
@@ -144,26 +146,38 @@ export default function CaseStudyPage({ params }: CasePageProps) {
               </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {caseStudy.images.map((image, index) => (
-                <figure
-                  key={image}
-                  className={`metal-card overflow-hidden rounded-lg ${index === 0 ? "md:col-span-2 xl:col-span-2" : ""}`}
-                >
-                  <div className={`relative bg-ink ${index === 0 ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
-                    <Image
-                      src={image}
-                      alt={`${caseStudy.title}, фото ${index + 1}`}
-                      fill
-                      sizes={index === 0 ? "(min-width: 1280px) 66vw, 100vw" : "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"}
-                      className="object-contain"
-                    />
-                  </div>
-                  <figcaption className="border-t border-silver/10 px-4 py-3 text-xs uppercase text-silver/60">
-                    Фото {index + 1}
-                  </figcaption>
-                </figure>
-              ))}
+            <div className="grid gap-5">
+              <figure className="metal-card overflow-hidden rounded-lg">
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink sm:aspect-[16/9]">
+                  <Image
+                    src={featuredImage}
+                    alt={`${caseStudy.title}, фото 1`}
+                    fill
+                    sizes="(min-width: 1280px) 1200px, 100vw"
+                    className="object-cover transition duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+                <figcaption className="border-t border-silver/10 px-4 py-2 text-xs uppercase text-silver/60">Фото 1</figcaption>
+              </figure>
+
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {galleryImages.map((image, index) => (
+                  <figure key={image} className="metal-card overflow-hidden rounded-lg">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-ink">
+                      <Image
+                        src={image}
+                        alt={`${caseStudy.title}, фото ${index + 2}`}
+                        fill
+                        sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition duration-500 hover:scale-105"
+                      />
+                    </div>
+                    <figcaption className="border-t border-silver/10 px-4 py-2 text-xs uppercase text-silver/60">
+                      Фото {index + 2}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
             </div>
           </div>
         </section>

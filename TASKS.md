@@ -408,6 +408,28 @@
 - [x] Не менять глобальный дизайн, бренд, контакты, sticky header, backend/API/dependencies/forms.
 - [x] Не возвращать WhatsApp/Instagram.
 
+## Stage 4.28 — Portfolio Cards Alignment + Case Gallery Layout Fix
+
+- [x] Проанализировать текущую структуру проекта перед изменениями.
+- [x] Выровнять portfolio cards на главной по высоте.
+- [x] Сделать portfolio cards `h-full flex flex-col`.
+- [x] Прижать CTA `Смотреть объект` вниз через `mt-auto`.
+- [x] Сохранить структуру объектного portfolio: 3 кейса, текущие slug и группировку фото.
+- [x] Разделить gallery на страницах объектов на крупное первое фото и ровную сетку остальных фото.
+- [x] Перевести gallery tiles на `aspect-[4/3]` и `object-cover`, чтобы вертикальные фото не создавали большие черные поля.
+- [x] Сохранить маленькие подписи `Фото 1`, `Фото 2` без больших caption-блоков.
+- [x] Проверить `/works/industrial-height-demolition` на уровне responsive code review: вертикальные фото не ломают сетку.
+- [x] Проверить mobile 390px на уровне responsive code review: portfolio cards, case pages, gallery one-column, sticky header offset и CTA.
+- [x] Проверить desktop на уровне code review: 3 карточки в ряд, CTA на одном уровне, ровная case gallery.
+- [x] Обновить README.md и TASKS.md.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Запустить `npm run dev` и проверить `/`, `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` 200.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Не менять контакты, бренд, логику portfolio, количество кейсов, backend/API/dependencies/forms.
+- [x] Не возвращать WhatsApp/Instagram.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

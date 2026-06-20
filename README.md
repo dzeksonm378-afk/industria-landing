@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1 и Stage 4.27:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27 и Stage 4.28:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -105,6 +105,11 @@
 - добавлены статические страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition`;
 - страницы объектов используют `generateStaticParams`, metadata, `notFound()` и галерею на `next/image`;
 - backend, API routes, database, dependencies и реальные формы не добавлялись.
+- выполнен Stage 4.28 portfolio cards alignment + case gallery layout fix;
+- portfolio cards на главной выровнены по высоте, CTA `Смотреть объект` прижат вниз внутри каждой карточки;
+- case galleries на страницах объектов разделены на крупное первое фото и ровную responsive-сетку остальных фотографий;
+- gallery tiles используют `object-cover`, чтобы вертикальные фото не создавали большие черные пустые поля;
+- backend, API routes, database, dependencies и реальные формы не добавлялись.
 
 ## Стек
 
@@ -139,7 +144,7 @@ npm run build
 
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
-Stage 4.27 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, `npm run dev` поднят на `http://localhost:3000`, главная и страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` отвечают HTTP 200.
+Stage 4.28 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, свежий `npm run dev -- -p 3001` поднят на `http://localhost:3001`, главная и страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` отвечают HTTP 200.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
