@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { caseStudies } from "@/data/caseStudies";
 import { siteContent } from "@/data/siteContent";
 import { Section } from "@/components/ui/Section";
 
@@ -12,19 +14,19 @@ export function PortfolioSection() {
       className="border-y border-silver/5 bg-surface/55"
     >
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {siteContent.portfolio.items.map((item) => (
-          <article
-            key={item.title}
-            className="metal-card group overflow-hidden rounded-lg transition duration-200 hover:-translate-y-1 hover:border-gold/40"
+        {caseStudies.map((caseStudy) => (
+          <Link
+            key={caseStudy.slug}
+            href={`/works/${caseStudy.slug}`}
+            className="metal-card group flex flex-col overflow-hidden rounded-lg transition duration-200 hover:-translate-y-1 hover:border-gold/40 focus-visible:outline-gold-soft"
           >
             <div className="relative aspect-[4/3] overflow-hidden border-b border-gold/15 bg-ink">
               <Image
-                src={item.imageSrc}
-                alt={item.imageAlt}
+                src={caseStudy.coverImage}
+                alt={caseStudy.title}
                 fill
                 sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
-                style={{ objectPosition: item.imagePosition }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/12 transition duration-300 group-hover:via-ink/38" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
@@ -32,26 +34,29 @@ export function PortfolioSection() {
                   {siteContent.portfolio.photoLabel}
                 </span>
                 <span className="rounded-md border border-silver/10 bg-ink/75 px-3 py-2 text-xs uppercase text-silver/80 backdrop-blur-sm">
-                  {item.category}
+                  {caseStudy.category}
                 </span>
               </div>
             </div>
-            <div className="p-5">
+            <div className="flex flex-1 flex-col p-5">
               <div className="flex flex-wrap items-center justify-between gap-3 text-xs uppercase text-silver/70">
                 <span className="text-gold-soft">{siteContent.portfolio.caseBadge}</span>
-                <span>{item.duration}</span>
+                <span>{caseStudy.images.length} фото</span>
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-mist">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-silver/75">{item.description}</p>
+              <h3 className="mt-4 text-xl font-semibold text-mist">{caseStudy.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-silver/75">{caseStudy.shortDescription}</p>
               <ul className="mt-5 flex flex-wrap gap-2">
-                {item.works.map((work) => (
+                {caseStudy.tags.map((work) => (
                   <li key={work} className="rounded-md border border-silver/10 bg-ink/45 px-3 py-1 text-xs text-silver/75">
                     {work}
                   </li>
                 ))}
               </ul>
+              <span className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-gold/45 bg-gold/10 px-4 py-3 text-sm font-semibold text-mist transition group-hover:border-gold-soft group-hover:bg-gold/15">
+                Смотреть объект
+              </span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </Section>

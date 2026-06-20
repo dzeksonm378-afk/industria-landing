@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24 и Stage 4.26:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1 и Stage 4.27:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -93,6 +93,18 @@
 - phone CTA уточнены: кнопки показывают действие "Позвонить" и номер мелким текстом;
 - final CTA обновлен на "Отправить фото в Telegram" и "Уточнить стоимость в Telegram";
 - WhatsApp/Instagram не возвращались, backend/API/forms/dependencies не добавлялись.
+- выполнен Stage 4.27.1 case photos folder structure;
+- создана структура `public/images/cases/` для будущего объектного portfolio: один объект = отдельная папка;
+- добавлены папки `object-01-building-demolition`, `object-02-industrial-height`, `object-03-village-houses` с `.gitkeep`;
+- добавлена инструкция `public/images/cases/README_SORT_PHOTOS.md` для ручной сортировки фотографий объектов;
+- текущий portfolio UI, компоненты, тексты и контакты не менялись.
+- выполнен Stage 4.27 object portfolio auto sort + case pages;
+- все прикрепленные фото сгруппированы в 3 объектные папки: комплексный демонтаж здания, высотные/промышленные работы, частные дома и строения;
+- создан `src/data/caseStudies.ts` с 3 объектными кейсами, cover image, галереями, tags, work scope и результатом;
+- portfolio на главной теперь показывает 3 объектные карточки, каждая ведет на отдельную страницу объекта;
+- добавлены статические страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition`;
+- страницы объектов используют `generateStaticParams`, metadata, `notFound()` и галерею на `next/image`;
+- backend, API routes, database, dependencies и реальные формы не добавлялись.
 
 ## Стек
 
@@ -127,7 +139,7 @@ npm run build
 
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
-Stage 4.26 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, `npm run dev` поднят на `http://localhost:3000`, главная страница отвечает HTTP 200.
+Stage 4.27 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, `npm run dev` поднят на `http://localhost:3000`, главная и страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` отвечают HTTP 200.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
@@ -176,11 +188,11 @@ src/data/siteContent.ts
 
 ## Следующий этап
 
-Stage 5 — GitHub / Vercel Prep + Final Deploy / Handoff:
+GitHub / Vercel redeploy:
 
-- подготовить репозиторий к публикации;
-- проверить production checklist;
-- подготовить Vercel deployment notes;
+- подготовить GitHub/Vercel handoff;
+- сделать commit с объектным portfolio;
+- запушить изменения в GitHub для автоматического redeploy на Vercel;
 - заменить или подтвердить placeholder-данные перед реальным запуском;
 - заменить текущий PNG-логотип на версию с настоящей прозрачностью без нарисованного checkerboard-фона;
 - выполнить финальную визуальную browser-проверку на машине с доступным Chrome перед публикацией.

@@ -362,6 +362,52 @@
 - [x] Не менять глобальный дизайн, Hero layout, portfolio, логотип, backend/API/dependencies/forms.
 - [x] Не возвращать WhatsApp/Instagram.
 
+## Stage 4.27.1 — Case Photos Folder Structure
+
+- [x] Проанализировать текущую структуру проекта перед изменениями.
+- [x] Создать `public/images/cases/`.
+- [x] Создать `public/images/cases/object-01-building-demolition/`.
+- [x] Создать `public/images/cases/object-02-industrial-height/`.
+- [x] Создать `public/images/cases/object-03-village-houses/`.
+- [x] Добавить `.gitkeep` в каждую object-папку.
+- [x] Создать `public/images/cases/README_SORT_PHOTOS.md`.
+- [x] Описать, что в `object-01-building-demolition` нужно положить первые 8 фото объекта демонтажа здания / фасада / техники / погрузки / расчистки.
+- [x] Описать, что в `object-02-industrial-height` нужно положить 6 фото высотных/промышленных работ.
+- [x] Описать, что в `object-03-village-houses` нужно положить оставшиеся 8 фото домов / частных строений / расчистки участка.
+- [x] Не менять визуальный сайт, компоненты, тексты, контакты и текущий portfolio UI.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Не добавлять backend, API routes, базу данных, авторизацию, новые dependencies или реальные отправки форм.
+- [x] Следующий шаг Stage 4.27 выполнен: фото разложены, case pages добавлены.
+
+## Stage 4.27 — Object Portfolio Auto Sort + Case Pages
+
+- [x] Проанализировать текущую структуру проекта перед изменениями.
+- [x] Сохранить все прикрепленные фото в `public/images/cases/`.
+- [x] Сгруппировать фото современного/коммерческого здания в `object-01-building-demolition`.
+- [x] Сгруппировать фото высотных/промышленных работ в `object-02-industrial-height`.
+- [x] Сгруппировать фото частных домов и строений в `object-03-private-houses`.
+- [x] Создать `src/data/caseStudies.ts`.
+- [x] Описать 3 кейса: building-demolition, industrial-height-demolition, private-houses-demolition.
+- [x] Переделать portfolio на главной на 3 объектные карточки.
+- [x] Добавить CTA `Смотреть объект` для каждой карточки.
+- [x] Создать `src/app/works/[slug]/page.tsx`.
+- [x] Добавить `generateStaticParams`.
+- [x] Добавить metadata для страниц объектов.
+- [x] Добавить `notFound()` для неизвестного slug.
+- [x] Сделать страницу объекта: back link, category/tags, title, description, cover image, work scope, gallery, result, CTA.
+- [x] Сделать галерею через `next/image` без lightbox и новых dependencies.
+- [x] Проверить mobile 390px на уровне responsive code review: cards, detail page, gallery, sticky header, back link и CTA.
+- [x] Проверить desktop regression на уровне code review: 3 карточки portfolio в ряд, premium style и контакты.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Запустить `npm run dev` и проверить `/`, `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` 200.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Зафиксировать, что автоматическая mobile browser-проверка недоступна: Chrome executable не найден в текущей среде.
+- [x] Не менять глобальный дизайн, бренд, контакты, sticky header, backend/API/dependencies/forms.
+- [x] Не возвращать WhatsApp/Instagram.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.
