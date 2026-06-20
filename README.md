@@ -114,7 +114,7 @@
 - старый массив из 6 одиночных portfolio photo cards удален из `siteContent.portfolio`;
 - публичный portfolio render окончательно использует только `src/data/caseStudies.ts` с 3 object case cards;
 - страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` сохранены как статические case pages;
-- regression fix подготовлен к commit/push в `main` для Vercel auto-deploy.
+- regression fix отправлен в `main`, Vercel auto-deploy обновил production, HTTP/HTML smoke прошел успешно.
 
 ## Стек
 
