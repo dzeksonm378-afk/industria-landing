@@ -455,6 +455,51 @@
 - [x] Не менять глобальный дизайн, бренд, контакты, логотипы, backend/API/dependencies/forms.
 - [x] Не возвращать WhatsApp/Instagram.
 
+## Stage 4.29.0 — Add Local AGENTS Security Rules with Global Skills Path
+
+- [x] Проверить, что в корне проекта ранее не было `AGENTS.md`.
+- [x] Создать `AGENTS.md` в корне проекта.
+- [x] Зафиксировать тип проекта: статический Next.js App Router marketing site.
+- [x] Зафиксировать, что backend, API routes, database, auth, payments и настоящие формы не добавляются без явной задачи.
+- [x] Зафиксировать путь к глобальным cybersecurity skills: `C:\Users\Утка\.agents\skills`.
+- [x] Зафиксировать, что перед security-sensitive задачами нужно выбирать и читать релевантные `SKILL.md` из глобальной папки.
+- [x] Зафиксировать запрет на `eval`, `dangerouslySetInnerHTML`, secrets in repo, offensive tooling и unsafe user-data handling.
+- [x] Зафиксировать frontend safety rules для CTA, forms, `fetch`, `process.env` и API/backend.
+- [x] Зафиксировать required checks: `npm run lint`, `npm run build`, security pass и UI string pass.
+- [x] Обновить README.md и TASKS.md.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npm run build`.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Не менять визуальный сайт, portfolio, компоненты, контакты, бренд и деплой.
+- [x] Не добавлять backend/API/database/dependencies/forms.
+- [x] Не делать commit/push/deploy без отдельной команды.
+
+## Stage 4.30 — Final Mobile QA + Commit/Push for Redeploy
+
+- [x] Прочитать `AGENTS.md` перед изменениями.
+- [x] Прочитать релевантный global cybersecurity skill: `performing-security-headers-audit`.
+- [x] Выполнить Git/branch/remote диагностику.
+- [x] Подтвердить рабочую папку `C:\Users\Утка\Desktop\СтройКИД`.
+- [x] Подтвердить branch `main`.
+- [x] Подтвердить remote `https://github.com/dzeksonm378-afk/industria-landing.git`.
+- [x] Проверить mobile layout на уровне responsive code review: Header, sticky nav, Hero, contact-card, Services, Pricing, Portfolio, Process, About, Final CTA и Footer.
+- [x] Проверить sticky header / anchors на уровне code review: `scroll-padding-top`, `scroll-margin-top`, spacer под fixed Header.
+- [x] Проверить portfolio на уровне code review: 3 object cards, one-column mobile grid, CTA `Смотреть объект`, без старых 6 cards.
+- [x] Проверить страницы объектов на уровне code review: mobile spacing, back link, cover image, one-column gallery, `object-cover`, CTA `Рассчитать похожий объект`.
+- [x] Проверить desktop regression на уровне code review: Header, 3-card portfolio, object pages, gallery, contacts.
+- [x] Обновить README.md и TASKS.md.
+- [x] Запустить `npm run lint`.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [ ] Запустить `npm run build` вне sandbox после `spawn EPERM`, если execution limit снова доступен.
+- [ ] Запустить локальный dev/browser QA, если execution limit снова доступен.
+- [ ] Сделать commit `Finalize mobile QA and portfolio case pages`, если git write escalation доступен.
+- [ ] Запушить изменения в `origin/main`, если git push escalation доступен.
+- [ ] Проверить Vercel auto-deploy после push.
+- [x] Не менять runtime-код, визуальный сайт, portfolio grouping, компоненты, контакты, бренд, логотипы.
+- [x] Не добавлять backend/API/database/dependencies/forms.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

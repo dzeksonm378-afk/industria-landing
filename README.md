@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28 и Stage 4.29:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0 и Stage 4.30:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -115,6 +115,16 @@
 - публичный portfolio render окончательно использует только `src/data/caseStudies.ts` с 3 object case cards;
 - страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` сохранены как статические case pages;
 - regression fix отправлен в `main`, Vercel auto-deploy обновил production, HTTP/HTML smoke прошел успешно.
+- выполнен Stage 4.29.0 local agent/security rules;
+- создан `AGENTS.md` с локальными правилами проекта, frontend/security ограничениями и обязательными проверками перед отчетом;
+- в `AGENTS.md` зафиксирован путь к глобальным cybersecurity skills: `C:\Users\Утка\.agents\skills`;
+- сайт визуально, portfolio, компоненты, контакты, бренд и деплой на этом этапе не менялись.
+- выполнен Stage 4.30 final mobile QA + redeploy prep;
+- mobile QA выполнен на уровне responsive code review для Header, sticky mobile nav, Hero, contact-card, Services, Pricing, Portfolio, Process, About, Final CTA, Footer и страниц объектов;
+- sticky header и anchor offsets проверены по коду: `scroll-padding-top`, `scroll-margin-top` и spacer под fixed mobile Header сохранены;
+- portfolio и страницы объектов не переделывались: остаются 3 object cards и 3 `/works/[slug]` страницы;
+- runtime-код сайта на этом этапе не менялся;
+- commit/push/deploy для Stage 4.30 остаются pending: git write/push escalation в текущей среде отклонён execution limit.
 
 ## Стек
 
@@ -149,7 +159,7 @@ npm run build
 
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
-Stage 4.29 checks: `npm run lint` проходит, `npm run build` проходит после запуска вне sandbox из-за `spawn EPERM` на Next worker-процессах, свежий `npm run dev -- -p 3001` поднят на `http://localhost:3001`, главная и страницы `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` отвечают HTTP 200.
+Stage 4.30 checks: `npm run lint` проходит. `npm run build` в sandbox падает на `spawn EPERM` на Next worker-процессах; запуск вне sandbox, локальный browser/dev QA и git commit/push в текущей среде ограничены execution limit.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
