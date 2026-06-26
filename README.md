@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0 и Stage 4.30:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0, Stage 4.30 и Stage 5.0:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -125,6 +125,14 @@
 - portfolio и страницы объектов не переделывались: остаются 3 object cards и 3 `/works/[slug]` страницы;
 - runtime-код сайта на этом этапе не менялся;
 - commit/push/deploy для Stage 4.30 остаются pending: git write/push escalation в текущей среде отклонён execution limit.
+- выполнен Stage 5.0 AI estimate MVP foundation;
+- создана страница `/estimate` с формой загрузки 1-5 фото и вопросами по объекту;
+- создан server-side API route `/api/estimate` для multipart/form-data, валидации, временного rule-based расчета и safe JSON response;
+- добавлен модуль `src/server/estimate/estimate-rules.ts` с временными MVP-коэффициентами, которые Дане/Илье нужно заменить на реальные данные;
+- добавлен `.env.example` с placeholders для будущих Gemini и Telegram integration без реальных ключей и без `NEXT_PUBLIC_` секретов;
+- основные CTA расчета ведут на `/estimate`, Telegram/tel контакты Ильи и Вадима оставлены как есть;
+- на Stage 5.0 Gemini API не вызывается, Telegram-отправка не выполняется, фото не сохраняются на диск, база данных не добавлялась;
+- `AGENTS.md` обновлен явным исключением: `/api/estimate` разрешен только как часть Stage 5 estimate MVP.
 
 ## Стек
 
@@ -133,7 +141,7 @@
 - Tailwind CSS
 - React
 
-Backend, база данных, авторизация, платежи и внешние скрипты на первом этапе не добавляются.
+До Stage 5.0 сайт был frontend-only. Сейчас добавлен один server-side API route `/api/estimate` для MVP-предрасчета; база данных, авторизация, платежи, хранение фото, реальные Gemini/Telegram integrations и внешние скрипты не добавлялись.
 
 ## Как запустить
 
@@ -141,6 +149,14 @@ Backend, база данных, авторизация, платежи и вне
 npm install
 npm run dev
 ```
+
+Для будущей AI/Telegram интеграции можно подготовить локальный env-файл из шаблона:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+На Stage 5.0 `AI_ESTIMATE_ENABLED=false` и `TELEGRAM_ESTIMATE_ENABLED=false` означают нормальный fallback-режим: расчет выполняется по временным правилам из `src/server/estimate/estimate-rules.ts`.
 
 После запуска сайт будет доступен на:
 
@@ -159,7 +175,7 @@ npm run build
 
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
-Stage 4.30 checks: `npm run lint` проходит. `npm run build` в sandbox падает на `spawn EPERM` на Next worker-процессах; запуск вне sandbox, локальный browser/dev QA и git commit/push в текущей среде ограничены execution limit.
+Stage 5.0.1 checks: `npm run lint` проходит, `npx tsc --noEmit` проходит. `npm run build` в sandbox падает на `spawn EPERM`, но вне sandbox production build проходит успешно и показывает `/estimate` и `/api/estimate` в route table. Локальный dev smoke вернул 200 для `/`, `/estimate` и трех `/works/...` страниц. POST-проверки `/api/estimate` пройдены: no photo, wrong MIME type, more than 5 photos возвращают validation error без 500; валидный multipart request возвращает `ok: true`, price range, reasons и честный `aiComment`.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
@@ -204,12 +220,16 @@ src/data/siteContent.ts
 
 Публичных форм отправки данных на главной странице нет. Контактные CTA ведут на реальные телефонные и Telegram-ссылки Ильи и Вадима.
 
-Расчет по фото на текущем этапе описан как предварительная оценка. Финальную стоимость нужно подтверждать после живого осмотра объекта.
+Страница `/estimate` содержит MVP-форму предрасчета и отправляет данные только на локальный server-side endpoint `/api/estimate`. Фото валидируются по количеству, MIME type и размеру, не сохраняются на диск и не отправляются во внешние сервисы на Stage 5.0.
+
+Расчет по фото на текущем этапе описан как предварительная оценка. Финальную стоимость нужно подтверждать после живого осмотра объекта. `AI-предрасчёт` не является публичной офертой или финальной сметой.
 
 ## Следующий этап
 
 GitHub / Vercel redeploy:
 
+- Stage 5.1: подключить Gemini integration server-side через `GEMINI_API_KEY` и `GEMINI_MODEL`, не передавая ключи в client bundle;
+- добавить Telegram-отправку заявки только отдельным security-sensitive stage после проверки токенов, rate limits и privacy wording;
 - подготовить GitHub/Vercel handoff;
 - сделать commit с объектным portfolio;
 - запушить изменения в GitHub для автоматического redeploy на Vercel;

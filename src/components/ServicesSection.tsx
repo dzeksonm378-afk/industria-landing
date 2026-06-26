@@ -30,7 +30,7 @@ export function ServicesSection() {
                 ))}
               </ul>
               <ButtonLink
-                href="#photo-estimate"
+                href="/estimate"
                 variant="ghost"
                 className="mt-6 w-full"
                 aria-label={`Предварительно оценить по фото услугу: ${service.title}`}

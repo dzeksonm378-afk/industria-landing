@@ -127,7 +127,7 @@ export default function CaseStudyPage({ params }: CasePageProps) {
               <p className="mt-4 text-sm leading-6 text-silver/75">
                 Для похожего объекта можно отправить фото или видео и получить предварительный ориентир по работам.
               </p>
-              <ButtonLink href="/#photo-estimate" className="mt-6" aria-label="Перейти к предварительному расчету похожего объекта">
+              <ButtonLink href="/estimate" className="mt-6" aria-label="Перейти к предварительному расчету похожего объекта">
                 Рассчитать похожий объект
               </ButtonLink>
             </div>

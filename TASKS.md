@@ -500,6 +500,52 @@
 - [x] Не менять runtime-код, визуальный сайт, portfolio grouping, компоненты, контакты, бренд, логотипы.
 - [x] Не добавлять backend/API/database/dependencies/forms.
 
+## Stage 5.0 — AI Estimate MVP Foundation
+
+- [x] Прочитать `AGENTS.md` перед изменениями.
+- [x] Прочитать релевантные global cybersecurity skills: `implementing-api-schema-validation-security`, `implementing-api-rate-limiting-and-throttling`, `implementing-api-key-security-controls`, `conducting-api-security-testing`, `performing-web-application-penetration-test`.
+- [x] Сверить Next.js App Router Route Handler подход через официальные Next.js docs в Context7.
+- [x] Создать `.env.example` с placeholders: `GEMINI_API_KEY`, `GEMINI_MODEL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ESTIMATE_CHAT_ID`, `AI_ESTIMATE_ENABLED`, `TELEGRAM_ESTIMATE_ENABLED`.
+- [x] Не добавлять реальные секреты и не использовать `NEXT_PUBLIC_` для будущих secret env.
+- [x] Создать `src/server/estimate/estimate-rules.ts`.
+- [x] Добавить типы `EstimateObjectType`, `EstimateInput`, `EstimateResult`.
+- [x] Добавить `calculateEstimate()` с временными MVP-коэффициентами и диапазоном цен.
+- [x] Создать `src/app/api/estimate/route.ts`.
+- [x] Принимать только `POST multipart/form-data`.
+- [x] Валидировать `name`, `contact`, `objectType`, `area`, `access`, `wasteRemoval`, `urgency`, `comment`.
+- [x] Валидировать `photos`: 1-5 файлов, JPG/PNG/WebP, до 5 MB каждый, до 20 MB всего.
+- [x] Не сохранять фото на диск.
+- [x] Не логировать персональные данные или содержимое фото.
+- [x] Не возвращать raw internal errors.
+- [x] Добавить best-effort in-memory rate limit для MVP endpoint.
+- [x] Вернуть safe JSON response с preliminary estimate, reasons, `aiComment` и confidence.
+- [x] Не вызывать Gemini API на Stage 5.0.
+- [x] Не отправлять Telegram-сообщения на Stage 5.0.
+- [x] Создать страницу `src/app/estimate/page.tsx`.
+- [x] Создать client component `src/components/estimate/EstimateForm.tsx`.
+- [x] Добавить client-side UX validation, selected files count, loading state, error state и result card.
+- [x] Показать disclaimer на странице и в result card.
+- [x] Вынести estimate copy/options в `src/data/siteContent.ts`.
+- [x] Перевести основные CTA расчета на `/estimate`.
+- [x] Добавить в `#photo-estimate` кнопку `AI-предрасчёт по фото` -> `/estimate`.
+- [x] Оставить Telegram/tel ссылки Ильи и Вадима без изменений.
+- [x] Обновить `AGENTS.md` явным исключением для `/api/estimate` как Stage 5 MVP API route.
+- [x] Обновить `README.md`.
+- [x] Обновить `TASKS.md`.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npx tsc --noEmit`.
+- [x] Запустить `npm run build` в sandbox и зафиксировать `spawn EPERM`.
+- [x] Запустить `npm run build` вне sandbox: production build проходит успешно, `/estimate` и `/api/estimate` присутствуют в route table.
+- [x] Запустить `npm run dev` вне sandbox и проверить `/`, `/estimate`, `/works/building-demolition`, `/works/industrial-height-demolition`, `/works/private-houses-demolition` 200.
+- [x] Проверить API через HTTP: no photo возвращает validation error без 500.
+- [x] Проверить API через HTTP: wrong file type возвращает MIME validation error без 500.
+- [x] Проверить API через HTTP: more than 5 photos возвращает validation error без 500.
+- [x] Проверить API через HTTP: valid request возвращает `ok: true`, `estimate.minPrice`, `estimate.maxPrice`, `estimate.reasons` и `aiComment`.
+- [ ] Сделать commit `Add AI estimate MVP foundation`, если финальные checks пройдут и git write escalation доступен.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [x] Не добавлять database, CRM, history, admin, PDF, auth, payments, file storage, new dependencies или push.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

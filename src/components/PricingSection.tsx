@@ -23,7 +23,7 @@ export function PricingSection() {
         ))}
       </div>
       <p className="mt-5 max-w-2xl text-sm leading-6 text-silver/75">{siteContent.pricing.note}</p>
-      <ButtonLink href="#photo-estimate" className="mt-8" aria-label="Получить предварительный расчет стоимости по фото">
+      <ButtonLink href="/estimate" className="mt-8" aria-label="Получить предварительный расчет стоимости по фото">
         {siteContent.pricing.ctaLabel}
       </ButtonLink>
     </Section>

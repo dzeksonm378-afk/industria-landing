@@ -6,6 +6,8 @@
 
 Проект сейчас не должен иметь backend, API routes, базу данных, авторизацию, платежи или настоящую отправку форм без отдельной явной задачи.
 
+Stage 5.0 explicitly allows one server-side API route, `/api/estimate`, only for the AI estimate MVP foundation. It must stay limited to validated multipart input, temporary rule-based pricing, no file storage, no database, no Telegram send, and no real Gemini call until a later explicit stage.
+
 ## Existing global cybersecurity skills
 
 На машине доступны глобальные cybersecurity skills:
@@ -51,6 +53,7 @@ Security-sensitive задачи включают:
 * Не менять несвязанные части проекта.
 * Не добавлять новые зависимости без явной необходимости.
 * Не добавлять backend/API/forms без явной задачи.
+* `/api/estimate` is the only currently approved API route, and only for the Stage 5 estimate MVP.
 
 ## Security rules
 
@@ -79,6 +82,7 @@ Security-sensitive задачи включают:
 * CTA должны быть обычными ссылками на Telegram/tel или якоря.
 * Не использовать настоящие `<form>` submit без явной задачи.
 * Не добавлять `fetch`/`process.env` в `src` без явной задачи.
+* Если задача явно требует env variables, читать их только server-side и не использовать `NEXT_PUBLIC_` для секретов.
 * Не добавлять API/backend случайно.
 * Не хранить реальные секреты, токены, пароли или приватные данные в репозитории.
 
@@ -95,7 +99,7 @@ Security-sensitive задачи включают:
 * нет `dangerouslySetInnerHTML`;
 * нет `console.log`;
 * нет `fetch`;
-* нет `process.env`;
+* нет `process.env` без явной задачи и server-side ограничения;
 * нет API routes;
 * нет настоящих form submit/onSubmit;
 * нет секретов.

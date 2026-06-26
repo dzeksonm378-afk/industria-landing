@@ -102,6 +102,14 @@ export function HeroSection() {
               ))}
             </ol>
 
+            <ButtonLink
+              href={siteContent.hero.contactCard.aiCtaHref}
+              className="mt-5 w-full"
+              aria-label="Перейти к AI-предрасчету демонтажа по фото"
+            >
+              {siteContent.hero.contactCard.aiCtaLabel}
+            </ButtonLink>
+
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {siteContent.company.contacts.people.map((person) => (
                 <div key={person.name} className="rounded-md border border-silver/10 bg-ink/70 p-3">

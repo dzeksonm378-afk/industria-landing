@@ -104,7 +104,7 @@ export const siteContent = {
       "Разбираем квартиры, коммерческие помещения, здания и отдельные конструкции. Освобождаем объект под ремонт, реконструкцию или новое строительство, организуем погрузку и вывоз строительного мусора.",
     badges: [experienceText, completedObjectsText, "предварительно по фото", "финально после осмотра", "вывоз мусора"],
     primaryCta: "Рассчитать по фото",
-    primaryCtaHref: "#photo-estimate",
+    primaryCtaHref: "/estimate",
     secondaryCta: "Посмотреть работы",
     secondaryCtaHref: "#portfolio",
     visual: {
@@ -120,6 +120,8 @@ export const siteContent = {
       title: "Предварительный расчет по фото",
       text:
         "Фото или видео помогают быстро определить ориентировочный объем работ. Финальную стоимость фиксируем после осмотра объекта вживую.",
+      aiCtaLabel: "AI-предрасчёт по фото",
+      aiCtaHref: "/estimate",
       steps: [
         "Пришлите фото или видео объекта",
         "Укажите район, тип объекта и объем работ",
@@ -341,5 +343,67 @@ export const siteContent = {
     description:
       "Демонтажные работы в квартирах, коммерческих помещениях, зданиях и сооружениях под ключ: разбор, погрузка, расчистка участка и вывоз строительного мусора.",
     privacy: "Политика конфиденциальности",
+  },
+  estimate: {
+    eyebrow: "AI-предрасчёт",
+    title: "AI-предрасчёт демонтажа по фото",
+    description:
+      "Загрузите фото объекта и ответьте на несколько вопросов. Система подготовит предварительный диапазон стоимости. Финальная смета после осмотра.",
+    disclaimer:
+      "AI-предрасчёт не является публичной офертой и финальной сметой. Итоговая стоимость определяется после осмотра объекта специалистом.",
+    form: {
+      title: "Данные для предварительной оценки",
+      nameLabel: "Имя",
+      namePlaceholder: "Как к вам обращаться",
+      contactLabel: "Телефон или Telegram",
+      contactPlaceholder: "+7 или @username",
+      objectTypeLabel: "Тип объекта",
+      areaLabel: "Примерная площадь, м2",
+      areaPlaceholder: "Например, 80",
+      accessLabel: "Доступ / этажность",
+      wasteRemovalLabel: "Нужен ли вывоз мусора",
+      urgencyLabel: "Срочность",
+      commentLabel: "Комментарий",
+      commentPlaceholder: "Адресный район, этаж, что нужно демонтировать, особенности доступа",
+      photosLabel: "Фото объекта",
+      photosHint: "Загрузите 1-5 фото в JPG, PNG или WebP. До 5 MB каждое, до 20 MB всего.",
+      submitLabel: "Получить предварительный расчёт",
+      selectedFilesLabel: "Выбрано файлов",
+      objectTypes: [
+        { value: "apartment", label: "квартира / помещение" },
+        { value: "commercial", label: "коммерческое помещение" },
+        { value: "private_house", label: "частный дом / строение" },
+        { value: "industrial", label: "промышленный объект" },
+        { value: "unknown", label: "не знаю" },
+      ],
+      accessOptions: [
+        { value: "low", label: "простой доступ" },
+        { value: "medium", label: "средний доступ" },
+        { value: "high", label: "сложный доступ" },
+        { value: "unknown", label: "не знаю" },
+      ],
+      wasteRemovalOptions: [
+        { value: "yes", label: "да" },
+        { value: "no", label: "нет" },
+        { value: "unknown", label: "не знаю" },
+      ],
+      urgencyOptions: [
+        { value: "standard", label: "стандартно" },
+        { value: "urgent", label: "срочно" },
+        { value: "unknown", label: "не знаю" },
+      ],
+    },
+    result: {
+      title: "Предварительный диапазон",
+      reasonsTitle: "Что учтено",
+      manualReviewText:
+        "По фото и данным требуется ручная проверка специалистом. Мы всё равно передадим заявку менеджеру.",
+      aiNoteTitle: "Статус AI-анализа",
+    },
+    notes: [
+      "Фото не сохраняются на сервере на Stage 5.0.",
+      "Gemini и Telegram-отправка подготовлены архитектурно, но не подключены.",
+      "Коэффициенты временные: Дане/Илье нужно заменить их на реальные данные.",
+    ],
   },
 } as const;
