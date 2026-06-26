@@ -546,6 +546,43 @@
 - [x] Выполнить UI string pass по `src`.
 - [x] Не добавлять database, CRM, history, admin, PDF, auth, payments, file storage, new dependencies или push.
 
+## Stage 5.1 — Gemini Flash Integration for AI Estimate MVP
+
+- [x] Прочитать `AGENTS.md` перед изменениями.
+- [x] Прочитать релевантные global cybersecurity skills: `implementing-api-key-security-controls`, `implementing-api-schema-validation-security`, `implementing-api-rate-limiting-and-throttling`, `implementing-secret-scanning-with-gitleaks`, `performing-web-application-penetration-test`.
+- [x] Сверить Gemini REST generateContent / structured JSON подход по официальной документации Google AI.
+- [x] Создать `src/server/estimate/gemini-estimate.ts`.
+- [x] Добавить тип `GeminiEstimateAnalysis`.
+- [x] Добавить `analyzeEstimateWithGemini()` с server-side `fetch`, `GEMINI_API_KEY`, `GEMINI_MODEL` и `AI_ESTIMATE_ENABLED`.
+- [x] Добавить fallback при выключенном AI, отсутствии ключа, ошибке Gemini, timeout или невалидном JSON.
+- [x] Не отправлять в Gemini имя и контакт пользователя.
+- [x] Не сохранять фото на диск.
+- [x] Не возвращать raw Gemini JSON, prompt, env или внутренние ошибки в UI/API response.
+- [x] Оставить цену в `calculateEstimate()`; Gemini не считает итоговую стоимость.
+- [x] Обновить `/api/estimate`, чтобы валидировать форму и фото до AI-вызова.
+- [x] Подмешивать Gemini object type только при достаточной confidence.
+- [x] Использовать более осторожный access difficulty, если Gemini видит более сложный доступ.
+- [x] Ставить ручную проверку при confidence ниже 55% и для сложных/рискованных промышленных объектов.
+- [x] Добавить `aiSource: "gemini" | "fallback"` в safe JSON response.
+- [x] Обновить UI результата: `Уверенность AI`, fallback notice, manual review и disclaimer.
+- [x] Обновить `.env.example` без реальных секретов и без `NEXT_PUBLIC_GEMINI_API_KEY`.
+- [x] Обновить `AGENTS.md` правилами Stage 5.1: Gemini только server-side, ключ не в client bundle, фото не хранить.
+- [x] Обновить `README.md`.
+- [x] Обновить `TASKS.md`.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npx tsc --noEmit`.
+- [x] Запустить `npm run build` в sandbox и зафиксировать `spawn EPERM`.
+- [x] Запустить `npm run build` вне sandbox: production build проходит успешно.
+- [x] Запустить dev smoke для `/`, `/estimate` и трех `/works/...` страниц.
+- [x] Проверить `/api/estimate`: valid fallback при `AI_ESTIMATE_ENABLED=false`.
+- [x] Проверить `/api/estimate`: fallback при `AI_ESTIMATE_ENABLED=true` с неверным ключом.
+- [x] Проверить `/api/estimate`: no photo, wrong MIME и more than 5 photos возвращают validation error без 500.
+- [x] Проверить Gemini real-key smoke: пропущено, потому что локальный `.env.local` с ключом отсутствует.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [ ] Сделать commit `Add Gemini AI estimate integration`, если проверки пройдут.
+- [x] Не добавлять dependencies, database, file storage, Telegram send, auth, payments, admin, PDF или push.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

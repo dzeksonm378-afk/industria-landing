@@ -4,6 +4,7 @@ import {
   type EstimateInput,
   type EstimateObjectType,
 } from "@/server/estimate/estimate-rules";
+import { analyzeEstimateWithGemini } from "@/server/estimate/gemini-estimate";
 
 export const runtime = "nodejs";
 
@@ -34,8 +35,22 @@ type EstimateApiResponse = {
     reasons: string[];
     aiComment: string;
     confidence: number;
+    aiSource: "gemini" | "fallback";
   };
   message: string;
+};
+
+type ValidatedEstimateForm = {
+  input: EstimateInput;
+  photos: File[];
+  fields: {
+    objectTypeFromUser: string;
+    area: number;
+    access: string;
+    wasteRemoval: string;
+    urgency: string;
+    comment: string;
+  };
 };
 
 type RateLimitState = {
@@ -178,7 +193,57 @@ function validateFormData(formData: FormData) {
     urgency,
   };
 
-  return { errors, input };
+  const validated: ValidatedEstimateForm = {
+    input,
+    photos,
+    fields: {
+      objectTypeFromUser: objectType,
+      area,
+      access,
+      wasteRemoval,
+      urgency,
+      comment,
+    },
+  };
+
+  return { errors, validated };
+}
+
+function getSaferAccessDifficulty(
+  userAccess: EstimateInput["accessDifficulty"],
+  aiAccess: EstimateInput["accessDifficulty"],
+) {
+  const rank: Record<EstimateInput["accessDifficulty"], number> = {
+    unknown: 0,
+    low: 1,
+    medium: 2,
+    high: 3,
+  };
+
+  if (userAccess === "unknown") {
+    return aiAccess;
+  }
+
+  return rank[aiAccess] > rank[userAccess] ? aiAccess : userAccess;
+}
+
+function getEstimateInputWithAi(
+  input: EstimateInput,
+  analysis: Awaited<ReturnType<typeof analyzeEstimateWithGemini>>["analysis"],
+  source: "gemini" | "fallback",
+) {
+  const shouldUseAiObjectType =
+    source === "gemini" && analysis.confidence >= 0.65 && analysis.objectType !== "unknown";
+
+  return {
+    ...input,
+    objectType: shouldUseAiObjectType ? analysis.objectType : input.objectType,
+    accessDifficulty: source === "gemini"
+      ? getSaferAccessDifficulty(input.accessDifficulty, analysis.accessDifficulty)
+      : input.accessDifficulty,
+    aiComplexity: analysis.complexity,
+    aiConfidence: analysis.confidence,
+  };
 }
 
 export async function POST(request: Request) {
@@ -223,7 +288,7 @@ export async function POST(request: Request) {
 
   const validation = validateFormData(formData);
 
-  if (!validation.input) {
+  if (!validation.validated) {
     return jsonResponse(
       {
         ok: false,
@@ -233,19 +298,34 @@ export async function POST(request: Request) {
     );
   }
 
-  const estimate = calculateEstimate(validation.input);
-  const confidence = estimate.needsManualReview ? 0.45 : 0.62;
-  const aiEstimateEnabled = process.env.AI_ESTIMATE_ENABLED === "true";
+  const aiResult = await analyzeEstimateWithGemini({
+    ...validation.validated.fields,
+    photos: validation.validated.photos,
+  });
+  const estimateInput = getEstimateInputWithAi(validation.validated.input, aiResult.analysis, aiResult.source);
+  const estimate = calculateEstimate(estimateInput);
+  const reasons = [...estimate.reasons];
+  let needsManualReview = estimate.needsManualReview;
+
+  if (
+    aiResult.source === "gemini" &&
+    aiResult.analysis.objectType === "industrial" &&
+    (aiResult.analysis.complexity === "high" || aiResult.analysis.visibleRisks.length > 0)
+  ) {
+    needsManualReview = true;
+    reasons.push("AI отметил промышленный объект со сложностью или видимыми рисками, нужна ручная проверка.");
+  }
 
   return jsonResponse(
     {
       ok: true,
       estimate: {
         ...estimate,
-        aiComment: aiEstimateEnabled
-          ? "AI-анализ фото подготовлен к подключению, но на Stage 5.0 расчет пока выполнен по базовым правилам и ответам пользователя."
-          : "AI-анализ фото будет подключён на следующем этапе. Сейчас расчёт выполнен по базовым правилам и ответам пользователя.",
-        confidence,
+        needsManualReview,
+        reasons,
+        aiComment: aiResult.analysis.shortComment,
+        confidence: aiResult.analysis.confidence,
+        aiSource: aiResult.source,
       },
       message: "Предварительный расчет готов.",
     },

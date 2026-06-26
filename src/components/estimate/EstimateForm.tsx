@@ -12,6 +12,7 @@ type EstimateApiResponse = {
     reasons: string[];
     aiComment: string;
     confidence: number;
+    aiSource: "gemini" | "fallback";
   };
   message: string;
 };
@@ -238,7 +239,12 @@ export function EstimateForm() {
             <div>
               <p className="text-sm font-semibold text-mist">{content.result.aiNoteTitle}</p>
               <p className="mt-2 text-sm leading-6 text-silver/75">{result.aiComment}</p>
-              <p className="mt-2 text-xs font-semibold text-silver/55">Уверенность расчета: {Math.round(result.confidence * 100)}%</p>
+              <p className="mt-2 text-xs font-semibold text-silver/55">Уверенность AI: {Math.round(result.confidence * 100)}%</p>
+              {result.aiSource === "fallback" && (
+                <p className="mt-2 text-xs font-semibold text-gold-soft/80">
+                  AI-анализ временно недоступен, расчёт выполнен по базовым правилам.
+                </p>
+              )}
             </div>
             <div>
               <p className="text-sm font-semibold text-mist">{content.result.reasonsTitle}</p>

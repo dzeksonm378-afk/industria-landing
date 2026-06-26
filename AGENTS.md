@@ -8,6 +8,8 @@
 
 Stage 5.0 explicitly allows one server-side API route, `/api/estimate`, only for the AI estimate MVP foundation. It must stay limited to validated multipart input, temporary rule-based pricing, no file storage, no database, no Telegram send, and no real Gemini call until a later explicit stage.
 
+Stage 5.1 explicitly allows server-side Gemini REST calls only from `src/server/estimate/gemini-estimate.ts`. Gemini may analyze visible photo features, but it must not calculate the final price. Pricing stays in `src/server/estimate/estimate-rules.ts`, photos must not be stored, and name/contact must not be sent to Gemini.
+
 ## Existing global cybersecurity skills
 
 На машине доступны глобальные cybersecurity skills:
@@ -83,6 +85,8 @@ Security-sensitive задачи включают:
 * Не использовать настоящие `<form>` submit без явной задачи.
 * Не добавлять `fetch`/`process.env` в `src` без явной задачи.
 * Если задача явно требует env variables, читать их только server-side и не использовать `NEXT_PUBLIC_` для секретов.
+* `GEMINI_API_KEY` must stay server-side only. Never expose it through `NEXT_PUBLIC_`, client components, returned JSON, logs, or docs.
+* External `fetch` is allowed only server-side for the approved Gemini estimate integration. Client-side `fetch` should stay limited to `/api/estimate`.
 * Не добавлять API/backend случайно.
 * Не хранить реальные секреты, токены, пароли или приватные данные в репозитории.
 

@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0, Stage 4.30 и Stage 5.0:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0, Stage 4.30, Stage 5.0 и Stage 5.1:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -133,6 +133,12 @@
 - основные CTA расчета ведут на `/estimate`, Telegram/tel контакты Ильи и Вадима оставлены как есть;
 - на Stage 5.0 Gemini API не вызывается, Telegram-отправка не выполняется, фото не сохраняются на диск, база данных не добавлялась;
 - `AGENTS.md` обновлен явным исключением: `/api/estimate` разрешен только как часть Stage 5 estimate MVP.
+- выполнен Stage 5.1 Gemini Flash integration;
+- добавлен server-side модуль `src/server/estimate/gemini-estimate.ts` для REST-вызова Gemini через `GEMINI_API_KEY`, `GEMINI_MODEL` и `AI_ESTIMATE_ENABLED`;
+- Gemini анализирует только видимые признаки фото и ответы пользователя без имени/контакта, не считает финальную цену и не сохраняет фото;
+- `/api/estimate` использует Gemini как подсказку, но итоговый диапазон по-прежнему считает `calculateEstimate()` по временным правилам;
+- при выключенном AI, отсутствии ключа, ошибке Gemini, timeout или невалидном JSON endpoint возвращает безопасный fallback без 500 для валидного запроса;
+- UI результата показывает источник fallback-состояния, уверенность AI, ручную проверку при низкой уверенности и дисклеймер.
 
 ## Стек
 
@@ -141,7 +147,7 @@
 - Tailwind CSS
 - React
 
-До Stage 5.0 сайт был frontend-only. Сейчас добавлен один server-side API route `/api/estimate` для MVP-предрасчета; база данных, авторизация, платежи, хранение фото, реальные Gemini/Telegram integrations и внешние скрипты не добавлялись.
+До Stage 5.0 сайт был frontend-only. Сейчас добавлен один server-side API route `/api/estimate` для MVP-предрасчета и server-side Gemini REST integration для анализа фото. База данных, авторизация, платежи, хранение фото, Telegram-отправка и внешние client-side scripts не добавлялись.
 
 ## Как запустить
 
@@ -156,7 +162,15 @@ npm run dev
 Copy-Item .env.example .env.local
 ```
 
-На Stage 5.0 `AI_ESTIMATE_ENABLED=false` и `TELEGRAM_ESTIMATE_ENABLED=false` означают нормальный fallback-режим: расчет выполняется по временным правилам из `src/server/estimate/estimate-rules.ts`.
+Для Gemini-предрасчёта используются только server-side env variables:
+
+```text
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-2.5-flash
+AI_ESTIMATE_ENABLED=false
+```
+
+`AI_ESTIMATE_ENABLED=false` означает нормальный fallback-режим: расчет выполняется по временным правилам из `src/server/estimate/estimate-rules.ts`. Для включения Gemini локально задайте `AI_ESTIMATE_ENABLED=true` и настоящий `GEMINI_API_KEY` в `.env.local`. Не используйте `NEXT_PUBLIC_GEMINI_API_KEY`: ключ не должен попадать в client bundle.
 
 После запуска сайт будет доступен на:
 
@@ -176,6 +190,8 @@ npm run build
 В текущей среде зависимости уже установлены, `package-lock.json` создан.
 
 Stage 5.0.1 checks: `npm run lint` проходит, `npx tsc --noEmit` проходит. `npm run build` в sandbox падает на `spawn EPERM`, но вне sandbox production build проходит успешно и показывает `/estimate` и `/api/estimate` в route table. Локальный dev smoke вернул 200 для `/`, `/estimate` и трех `/works/...` страниц. POST-проверки `/api/estimate` пройдены: no photo, wrong MIME type, more than 5 photos возвращают validation error без 500; валидный multipart request возвращает `ok: true`, price range, reasons и честный `aiComment`.
+
+Stage 5.1 checks: Gemini integration работает через server-side REST helper с fallback. Валидный запрос при `AI_ESTIMATE_ENABLED=false` возвращает `aiSource: "fallback"` без 500. При `AI_ESTIMATE_ENABLED=true` без валидного ключа endpoint также возвращает fallback. Проверка с реальным Gemini key выполняется только при наличии локального `.env.local` с настоящим ключом и не требует коммита секретов.
 
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
@@ -220,7 +236,7 @@ src/data/siteContent.ts
 
 Публичных форм отправки данных на главной странице нет. Контактные CTA ведут на реальные телефонные и Telegram-ссылки Ильи и Вадима.
 
-Страница `/estimate` содержит MVP-форму предрасчета и отправляет данные только на локальный server-side endpoint `/api/estimate`. Фото валидируются по количеству, MIME type и размеру, не сохраняются на диск и не отправляются во внешние сервисы на Stage 5.0.
+Страница `/estimate` содержит MVP-форму предрасчета и отправляет данные только на локальный server-side endpoint `/api/estimate`. Фото валидируются по количеству, MIME type и размеру, не сохраняются на диск. При включённом `AI_ESTIMATE_ENABLED=true` фото передаются в Gemini server-side как inline data для анализа видимых признаков; имя и контакт пользователя в Gemini не отправляются.
 
 Расчет по фото на текущем этапе описан как предварительная оценка. Финальную стоимость нужно подтверждать после живого осмотра объекта. `AI-предрасчёт` не является публичной офертой или финальной сметой.
 
@@ -228,8 +244,7 @@ src/data/siteContent.ts
 
 GitHub / Vercel redeploy:
 
-- Stage 5.1: подключить Gemini integration server-side через `GEMINI_API_KEY` и `GEMINI_MODEL`, не передавая ключи в client bundle;
-- добавить Telegram-отправку заявки только отдельным security-sensitive stage после проверки токенов, rate limits и privacy wording;
+- Stage 5.2: добавить Telegram-отправку заявки только отдельным security-sensitive stage после проверки токенов, rate limits и privacy wording;
 - подготовить GitHub/Vercel handoff;
 - сделать commit с объектным portfolio;
 - запушить изменения в GitHub для автоматического redeploy на Vercel;
