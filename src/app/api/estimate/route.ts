@@ -31,6 +31,12 @@ type EstimateApiResponse = {
   estimate?: {
     minPrice: number;
     maxPrice: number;
+    baseRate: number;
+    marketAverageRate: number;
+    discountPercent: number;
+    objectType: EstimateObjectType;
+    complexity: NonNullable<EstimateInput["aiComplexity"]>;
+    access: EstimateInput["accessDifficulty"];
     needsManualReview: boolean;
     reasons: string[];
     aiComment: string;
@@ -308,9 +314,8 @@ export async function POST(request: Request) {
   let needsManualReview = estimate.needsManualReview;
 
   if (
-    aiResult.source === "gemini" &&
-    aiResult.analysis.objectType === "industrial" &&
-    (aiResult.analysis.complexity === "high" || aiResult.analysis.visibleRisks.length > 0)
+    estimateInput.objectType === "industrial" &&
+    (estimateInput.aiComplexity === "high" || (aiResult.source === "gemini" && aiResult.analysis.visibleRisks.length > 0))
   ) {
     needsManualReview = true;
     reasons.push("AI отметил промышленный объект со сложностью или видимыми рисками, нужна ручная проверка.");

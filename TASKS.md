@@ -583,6 +583,40 @@
 - [ ] Сделать commit `Add Gemini AI estimate integration`, если проверки пройдут.
 - [x] Не добавлять dependencies, database, file storage, Telegram send, auth, payments, admin, PDF или push.
 
+## Stage 5.2 — Market Average Minus 10 Pricing Rules
+
+- [x] Прочитать `AGENTS.md` перед изменениями.
+- [x] Прочитать релевантные global cybersecurity skills: `implementing-api-key-security-controls`, `implementing-secret-scanning-with-gitleaks`, `implementing-api-schema-validation-security`, `performing-web-application-penetration-test`, `detecting-ai-model-prompt-injection-attacks`, `implementing-api-rate-limiting-and-throttling`.
+- [x] Оставить Gemini только как анализ фото, без расчёта финальной цены.
+- [x] Заменить временную pricing-логику в `src/server/estimate/estimate-rules.ts`.
+- [x] Добавить market average rates: apartment 1150, commercial 1450, private_house 1500, industrial 1800 ₽/м².
+- [x] Добавить discounted base rates: apartment 1050, commercial 1300, private_house 1350, industrial 1600 ₽/м².
+- [x] Зафиксировать discountPercent `10`.
+- [x] Добавить коэффициенты сложности: low 1, medium 1.15, high 1.35.
+- [x] Добавить коэффициенты доступа: low 1, medium 1.1, high 1.25.
+- [x] Добавить коэффициенты вывоза мусора и срочности.
+- [x] Добавить минимальные цены заказа: 15000 ₽ для apartment/commercial, 45000 ₽ для private_house, 80000 ₽ для industrial.
+- [x] Считать диапазон `minPrice = total * 0.85`, `maxPrice = total * 1.25` с округлением до 1000 ₽.
+- [x] Добавить понятные русские `reasons` без raw Gemini JSON/prompt.
+- [x] Расширить API response: `baseRate`, `marketAverageRate`, `discountPercent`, `objectType`, `complexity`, `access`.
+- [x] Сохранять `needsManualReview` при AI confidence ниже 55%.
+- [x] Сохранять manual review для industrial + high complexity или видимых рисков.
+- [x] Обновить UI результата: пояснение про среднюю рыночную ставку с дисконтом 10%.
+- [x] Обновить `README.md`.
+- [x] Обновить `TASKS.md`.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npx tsc --noEmit`.
+- [x] Запустить `npm run build` в sandbox и зафиксировать `spawn EPERM`.
+- [x] Запустить `npm run build` вне sandbox: production build проходит успешно.
+- [x] Запустить dev smoke для `/`, `/estimate` и трех `/works/...` страниц.
+- [x] Проверить `/api/estimate`: valid fallback request возвращает 200, price range и reasons.
+- [x] Проверить `/api/estimate`: no photo, wrong MIME и more than 5 photos возвращают 400.
+- [x] Проверить low confidence/fallback: не 500 и `needsManualReview: true`.
+- [x] Выполнить security pass по `src`.
+- [x] Выполнить UI string pass по `src`.
+- [ ] Сделать commit `Add market based estimate pricing`, если проверки пройдут.
+- [x] Не добавлять dependencies, database, file storage, CRM, Telegram send, auth, payments, admin, PDF или push.
+
 ## Stage 5 — GitHub/Vercel prep
 
 - [ ] Уточнить README перед публикацией.

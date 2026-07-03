@@ -4,7 +4,7 @@
 
 ## Текущий этап
 
-Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0, Stage 4.30, Stage 5.0 и Stage 5.1:
+Выполнены Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 4.5, Stage 4.6, Stage 4.8, Stage 4.10, Stage 4.11, Stage 4.12, Stage 4.13, Stage 4.14, Stage 4.15, Stage 4.16, Stage 4.17, Stage 4.18, Stage 4.20, Stage 4.21, Stage 4.24, Stage 4.26, Stage 4.27.1, Stage 4.27, Stage 4.28, Stage 4.29, Stage 4.29.0, Stage 4.30, Stage 5.0, Stage 5.1 и Stage 5.2:
 
 - зафиксированы проектные документы в `docs/`;
 - создан базовый Next.js App Router skeleton;
@@ -139,6 +139,11 @@
 - `/api/estimate` использует Gemini как подсказку, но итоговый диапазон по-прежнему считает `calculateEstimate()` по временным правилам;
 - при выключенном AI, отсутствии ключа, ошибке Gemini, timeout или невалидном JSON endpoint возвращает безопасный fallback без 500 для валидного запроса;
 - UI результата показывает источник fallback-состояния, уверенность AI, ручную проверку при низкой уверенности и дисклеймер.
+- выполнен Stage 5.2 market average minus 10 pricing rules;
+- временная pricing-логика заменена на понятную модель: средняя рыночная ставка по типу объекта, дисконт 10%, затем коэффициенты сложности, доступа, вывоза мусора и срочности;
+- API `/api/estimate` возвращает `baseRate`, `marketAverageRate`, `discountPercent`, `objectType`, `complexity`, `access`, price range, reasons, confidence, `aiSource` и `needsManualReview`;
+- UI результата объясняет, что диапазон построен по рыночной базе с дисконтом 10%, но финальная стоимость определяется только после осмотра специалистом;
+- Gemini по-прежнему не считает цену: AI используется только как подсказка по фото, а итоговый диапазон считает `calculateEstimate()`.
 
 ## Стек
 
@@ -193,6 +198,8 @@ Stage 5.0.1 checks: `npm run lint` проходит, `npx tsc --noEmit` прох
 
 Stage 5.1 checks: Gemini integration работает через server-side REST helper с fallback. Валидный запрос при `AI_ESTIMATE_ENABLED=false` возвращает `aiSource: "fallback"` без 500. При `AI_ESTIMATE_ENABLED=true` без валидного ключа endpoint также возвращает fallback. Проверка с реальным Gemini key выполняется только при наличии локального `.env.local` с настоящим ключом и не требует коммита секретов.
 
+Stage 5.2 checks: pricing model считает предварительный диапазон по бизнес-правилу "средняя рыночная цена −10% + коэффициенты сложности". Это не публичная оферта и не финальная смета. Финальная стоимость подтверждается после осмотра объекта специалистом.
+
 Vercel deploy prep: `.env*` файлы в корне не найдены, API routes/backend/forms submit не добавлены, `client-preview/` добавлен в `.gitignore` как технический артефакт вне runtime сайта. `git status` в текущей папке не выполняется, потому что директория не распознается как git repository.
 
 Browser screenshots в текущей среде ограничены: Playwright и Chrome DevTools не смогли стартовать из-за отсутствия установленного Google Chrome. Mobile screenshots hero, services и final CTA нужно выполнить вручную локально на машине с доступным Chrome.
@@ -238,13 +245,14 @@ src/data/siteContent.ts
 
 Страница `/estimate` содержит MVP-форму предрасчета и отправляет данные только на локальный server-side endpoint `/api/estimate`. Фото валидируются по количеству, MIME type и размеру, не сохраняются на диск. При включённом `AI_ESTIMATE_ENABLED=true` фото передаются в Gemini server-side как inline data для анализа видимых признаков; имя и контакт пользователя в Gemini не отправляются.
 
-Расчет по фото на текущем этапе описан как предварительная оценка. Финальную стоимость нужно подтверждать после живого осмотра объекта. `AI-предрасчёт` не является публичной офертой или финальной сметой.
+Расчет по фото на текущем этапе описан как предварительная оценка. Модель Stage 5.2 берет среднюю рыночную ставку по типу объекта, применяет дисконт 10% и коэффициенты сложности, доступа, вывоза мусора и срочности. Финальную стоимость нужно подтверждать после живого осмотра объекта. `AI-предрасчёт` не является публичной офертой или финальной сметой.
 
 ## Следующий этап
 
 GitHub / Vercel redeploy:
 
-- Stage 5.2: добавить Telegram-отправку заявки только отдельным security-sensitive stage после проверки токенов, rate limits и privacy wording;
+- выполнить Vercel env/deploy smoke после настройки production env;
+- добавить CRM/Telegram intake только отдельным security-sensitive stage после проверки токенов, rate limits и privacy wording;
 - подготовить GitHub/Vercel handoff;
 - сделать commit с объектным portfolio;
 - запушить изменения в GitHub для автоматического redeploy на Vercel;

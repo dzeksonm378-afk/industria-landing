@@ -8,6 +8,12 @@ type EstimateApiResponse = {
   estimate?: {
     minPrice: number;
     maxPrice: number;
+    baseRate: number;
+    marketAverageRate: number;
+    discountPercent: number;
+    objectType: "apartment" | "commercial" | "private_house" | "industrial" | "unknown";
+    complexity: "low" | "medium" | "high" | "unknown";
+    access: "low" | "medium" | "high" | "unknown";
     needsManualReview: boolean;
     reasons: string[];
     aiComment: string;
@@ -229,6 +235,7 @@ export function EstimateForm() {
           <p className="mt-3 text-3xl font-semibold leading-tight text-mist">
             {formatPrice(result.minPrice)} - {formatPrice(result.maxPrice)} ₽
           </p>
+          <p className="mt-3 text-sm leading-6 text-silver/75">{content.result.pricingBasisText}</p>
           {result.needsManualReview && (
             <p className="mt-3 rounded-md border border-gold/20 bg-gold/10 p-3 text-sm leading-6 text-silver/80">
               {content.result.manualReviewText}
