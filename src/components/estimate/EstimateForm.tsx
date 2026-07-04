@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
 import { siteContent } from "@/data/siteContent";
 
 type EstimateApiResponse = {
@@ -35,7 +35,11 @@ function getFormString(formData: FormData, name: string) {
 }
 
 function formatPrice(value: number) {
-  return new Intl.NumberFormat("ru-RU").format(value);
+  return new Intl.NumberFormat("ru-RU").format(value).replace(/\s/g, "\u00a0");
+}
+
+function formatPriceRange(minPrice: number, maxPrice: number) {
+  return `${formatPrice(minPrice)}–${formatPrice(maxPrice)}\u00a0₽`;
 }
 
 function validateClientForm(formData: FormData, files: File[]) {
@@ -90,8 +94,22 @@ export function EstimateForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [result, setResult] = useState<EstimateApiResponse["estimate"] | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const content = siteContent.estimate;
+
+  useEffect(() => {
+    if (!result) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      resultRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }, [result]);
 
   function handleFilesChange(event: ChangeEvent<HTMLInputElement>) {
     setSelectedFiles(Array.from(event.target.files ?? []));
@@ -133,7 +151,7 @@ export function EstimateForm() {
   }
 
   return (
-    <form className="premium-panel rounded-lg p-5 lg:p-7" onSubmit={handleSubmit}>
+    <form className="premium-panel scroll-mt-20 rounded-lg p-4 sm:p-5 lg:p-7" onSubmit={handleSubmit}>
       <div className="mb-6">
         <p className="text-sm font-semibold uppercase text-gold-soft">{content.eyebrow}</p>
         <h2 className="mt-3 text-2xl font-semibold leading-tight text-mist">{content.form.title}</h2>
@@ -230,10 +248,10 @@ export function EstimateForm() {
       )}
 
       {result && (
-        <div className="mt-6 rounded-lg border border-gold/25 bg-ink/70 p-5" aria-live="polite">
+        <div ref={resultRef} className="mt-6 scroll-mt-20 rounded-lg border border-gold/25 bg-ink/70 p-4 sm:scroll-mt-24 sm:p-5 lg:scroll-mt-24" aria-live="polite">
           <p className="text-sm font-semibold uppercase text-gold-soft">{content.result.title}</p>
-          <p className="mt-3 text-3xl font-semibold leading-tight text-mist">
-            {formatPrice(result.minPrice)} - {formatPrice(result.maxPrice)} ₽
+          <p className="mt-3 overflow-hidden text-[clamp(1.45rem,6.6vw,2rem)] font-semibold leading-tight text-mist sm:text-3xl">
+            <span className="whitespace-nowrap">{formatPriceRange(result.minPrice, result.maxPrice)}</span>
           </p>
           <p className="mt-3 text-sm leading-6 text-silver/75">{content.result.pricingBasisText}</p>
           {result.needsManualReview && (

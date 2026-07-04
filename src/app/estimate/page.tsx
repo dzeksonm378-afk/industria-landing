@@ -17,15 +17,15 @@ export const metadata: Metadata = {
 export default function EstimatePage() {
   return (
     <>
-      <Header homeHrefPrefix="/" />
+      <Header homeHrefPrefix="/" mobileVariant="compactEstimate" />
       <main>
-        <section className="px-4 pb-12 pt-10 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
+        <section className="px-4 pb-12 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pb-16 lg:pt-16">
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <p className="mb-3 inline-flex rounded-sm border border-gold/20 bg-gold/10 px-3 py-1 text-sm font-semibold uppercase text-gold-soft">
                 {siteContent.estimate.eyebrow}
               </p>
-              <h1 className="max-w-4xl text-4xl font-semibold leading-tight text-mist sm:text-5xl">
+              <h1 className="max-w-4xl text-3xl font-semibold leading-tight text-mist sm:text-5xl">
                 {siteContent.estimate.title}
               </h1>
               <div className="gold-divider mt-6 max-w-sm" />
