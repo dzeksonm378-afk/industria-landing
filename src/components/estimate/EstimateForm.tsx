@@ -8,14 +8,21 @@ type EstimateApiResponse = {
   estimate?: {
     minPrice: number;
     maxPrice: number;
-    baseRate: number;
     marketAverageRate: number;
-    discountPercent: number;
+    companyRate: number;
+    markupPercent: number;
     objectType: "apartment" | "commercial" | "private_house" | "industrial" | "unknown";
     complexity: "low" | "medium" | "high" | "unknown";
     access: "low" | "medium" | "high" | "unknown";
     needsManualReview: boolean;
     reasons: string[];
+    breakdown: Array<{
+      key: "preparation" | "demolition" | "waste" | "finishing";
+      label: string;
+      percent: number;
+      minPrice: number;
+      maxPrice: number;
+    }>;
     aiComment: string;
     confidence: number;
     aiSource: "gemini" | "fallback";
@@ -259,6 +266,33 @@ export function EstimateForm() {
               {content.result.manualReviewText}
             </p>
           )}
+
+          <div className="mt-5 rounded-md border border-silver/10 bg-card-soft/50 p-4">
+            <p className="text-sm font-semibold text-mist">{content.result.breakdownTitle}</p>
+            <div className="mt-3 grid gap-3">
+              {result.breakdown.map((item) => (
+                <div key={item.key} className="rounded-md border border-silver/10 bg-ink/55 p-3">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold leading-5 text-mist">{item.label}</p>
+                      <p className="mt-1 text-xs font-semibold uppercase text-gold-soft">{item.percent}%</p>
+                    </div>
+                    <p className="shrink-0 whitespace-nowrap text-sm font-semibold leading-5 text-silver">
+                      {formatPriceRange(item.minPrice, item.maxPrice)}
+                    </p>
+                  </div>
+                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black">
+                    <span
+                      className="block h-full rounded-full bg-gold-soft"
+                      style={{ width: `${item.percent}%` }}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs leading-5 text-silver/65">{content.result.breakdownDisclaimer}</p>
+          </div>
 
           <div className="mt-5 grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
             <div>

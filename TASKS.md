@@ -583,25 +583,25 @@
 - [ ] Сделать commit `Add Gemini AI estimate integration`, если проверки пройдут.
 - [x] Не добавлять dependencies, database, file storage, Telegram send, auth, payments, admin, PDF или push.
 
-## Stage 5.2 — Market Average Minus 10 Pricing Rules
+## Stage 5.2 — Market-Based Pricing Rules
 
 - [x] Прочитать `AGENTS.md` перед изменениями.
 - [x] Прочитать релевантные global cybersecurity skills: `implementing-api-key-security-controls`, `implementing-secret-scanning-with-gitleaks`, `implementing-api-schema-validation-security`, `performing-web-application-penetration-test`, `detecting-ai-model-prompt-injection-attacks`, `implementing-api-rate-limiting-and-throttling`.
 - [x] Оставить Gemini только как анализ фото, без расчёта финальной цены.
 - [x] Заменить временную pricing-логику в `src/server/estimate/estimate-rules.ts`.
 - [x] Добавить market average rates: apartment 1150, commercial 1450, private_house 1500, industrial 1800 ₽/м².
-- [x] Добавить discounted base rates: apartment 1050, commercial 1300, private_house 1350, industrial 1600 ₽/м².
-- [x] Зафиксировать discountPercent `10`.
+- [x] Добавить server-side ставку расчёта на базе market average rates.
+- [x] Зафиксировать отдельное поле для корректировки ставки.
 - [x] Добавить коэффициенты сложности: low 1, medium 1.15, high 1.35.
 - [x] Добавить коэффициенты доступа: low 1, medium 1.1, high 1.25.
 - [x] Добавить коэффициенты вывоза мусора и срочности.
 - [x] Добавить минимальные цены заказа: 15000 ₽ для apartment/commercial, 45000 ₽ для private_house, 80000 ₽ для industrial.
 - [x] Считать диапазон `minPrice = total * 0.85`, `maxPrice = total * 1.25` с округлением до 1000 ₽.
 - [x] Добавить понятные русские `reasons` без raw Gemini JSON/prompt.
-- [x] Расширить API response: `baseRate`, `marketAverageRate`, `discountPercent`, `objectType`, `complexity`, `access`.
+- [x] Расширить API response: pricing fields, `objectType`, `complexity`, `access`.
 - [x] Сохранять `needsManualReview` при AI confidence ниже 55%.
 - [x] Сохранять manual review для industrial + high complexity или видимых рисков.
-- [x] Обновить UI результата: пояснение про среднюю рыночную ставку с дисконтом 10%.
+- [x] Обновить UI результата: пояснение про рыночную базу расчета.
 - [x] Обновить `README.md`.
 - [x] Обновить `TASKS.md`.
 - [x] Запустить `npm run lint`.
@@ -615,6 +615,34 @@
 - [x] Выполнить security pass по `src`.
 - [x] Выполнить UI string pass по `src`.
 - [ ] Сделать commit `Add market based estimate pricing`, если проверки пройдут.
+- [x] Не добавлять dependencies, database, file storage, CRM, Telegram send, auth, payments, admin, PDF или push.
+
+## Stage 5.5 — Market Plus 10 Pricing & Preliminary Work Breakdown
+
+- [x] Прочитать `AGENTS.md` перед изменениями.
+- [x] Прочитать релевантные global cybersecurity skills: `conducting-api-security-testing`, `implementing-api-schema-validation-security`, `implementing-api-key-security-controls`, `implementing-secret-scanning-with-gitleaks`, `detecting-ai-model-prompt-injection-attacks`, `performing-privacy-impact-assessment`, `performing-web-application-penetration-test`.
+- [x] Оставить Gemini только как анализ фото, без расчёта цены.
+- [x] Заменить pricing model на среднюю рыночную ставку с организационной наценкой 10%.
+- [x] Считать company rates программно через `Math.round(marketAverageRatePerM2 * 1.1)`.
+- [x] Сохранить market average rates: apartment 1150, commercial 1450, private_house 1500, industrial 1800 ₽/м².
+- [x] Сохранить коэффициенты сложности, доступа, вывоза мусора и срочности.
+- [x] Сохранить минимальные цены заказа.
+- [x] Добавить preliminary breakdown с вывозом: 10% подготовка, 55% демонтаж, 25% вывоз, 10% завершение.
+- [x] Добавить preliminary breakdown без вывоза: 12% подготовка, 73% демонтаж, 15% завершение.
+- [x] Скорректировать последнюю строку breakdown, чтобы суммы строк совпадали с итоговым min/max после округления.
+- [x] Расширить API response: `marketAverageRate`, `companyRate`, `markupPercent`, `breakdown`.
+- [x] Убрать старые pricing поля из API/UI.
+- [x] Обновить result card: добавить блок "Ориентировочная структура стоимости".
+- [x] Обновить pricing/disclaimer copy в `src/data/siteContent.ts`.
+- [x] Обновить `README.md`.
+- [x] Обновить `TASKS.md`.
+- [x] Запустить `npm run lint`.
+- [x] Запустить `npx tsc --noEmit`.
+- [x] Запустить `npm run build`.
+- [x] Выполнить API smoke для fallback, Gemini/fallback compatibility и validation cases.
+- [x] Выполнить mobile viewport 390 QA для `/estimate` result card.
+- [x] Выполнить security pass по `src`.
+- [x] Сделать commit `Add subcontractor adjusted estimate breakdown`, если проверки пройдут.
 - [x] Не добавлять dependencies, database, file storage, CRM, Telegram send, auth, payments, admin, PDF или push.
 
 ## Stage 5 — GitHub/Vercel prep

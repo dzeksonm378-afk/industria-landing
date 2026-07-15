@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   calculateEstimate,
+  type EstimateBreakdownItem,
   type EstimateInput,
   type EstimateObjectType,
 } from "@/server/estimate/estimate-rules";
@@ -31,14 +32,15 @@ type EstimateApiResponse = {
   estimate?: {
     minPrice: number;
     maxPrice: number;
-    baseRate: number;
     marketAverageRate: number;
-    discountPercent: number;
+    companyRate: number;
+    markupPercent: number;
     objectType: EstimateObjectType;
     complexity: NonNullable<EstimateInput["aiComplexity"]>;
     access: EstimateInput["accessDifficulty"];
     needsManualReview: boolean;
     reasons: string[];
+    breakdown: EstimateBreakdownItem[];
     aiComment: string;
     confidence: number;
     aiSource: "gemini" | "fallback";
