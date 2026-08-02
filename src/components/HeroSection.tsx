@@ -42,7 +42,7 @@ export function HeroSection() {
 
           <div className="mt-10 flex items-center gap-4 text-xs uppercase text-silver/55">
             <span className="h-px w-16 bg-gold/60" />
-            <span>demolition / loading / clean handoff</span>
+            <span>AI estimate / contract / CRM control</span>
           </div>
         </div>
 

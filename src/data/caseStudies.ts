@@ -9,6 +9,13 @@ export type CaseStudy = {
   tags: string[];
   workScope: string[];
   resultText: string;
+  // TODO(content): заполнить только подтвержденными данными от Ильи.
+  area?: string;
+  duration?: string;
+  cost?: string;
+  features?: string[];
+  beforeImages?: string[];
+  afterImages?: string[];
 };
 
 const buildingDemolitionImages = Array.from(
