@@ -85,10 +85,13 @@ export function ServiceDirectionPage({ direction }: ServiceDirectionPageProps) {
                   fill
                   priority
                   sizes="(min-width: 1024px) 42vw, 0px"
-                  className="object-cover"
+                  className="z-0 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none !absolute inset-0 z-10 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"
+                />
+                <div className="pointer-events-none !absolute inset-x-0 bottom-0 z-20 p-6">
                   <p className="text-sm font-semibold uppercase tracking-wide text-gold-soft">Состав работ — после осмотра</p>
                 </div>
               </div>
