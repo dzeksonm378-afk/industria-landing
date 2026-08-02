@@ -10,7 +10,7 @@ const pageDescription =
 const brandLogoPath = getBrandLogoPath();
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://industria-demo.example"),
+  metadataBase: new URL("https://industria-landing.vercel.app"),
   applicationName: siteContent.brandName,
   title: {
     default: pageTitle,

@@ -238,14 +238,14 @@ export const siteContent = {
     ],
   },
   portfolioDirections: {
-    eyebrow: "Направления портфолио",
-    title: "Выберите тип объекта",
-    description: "Навигация по промышленным направлениям. Ниже сохранены реальные объектные кейсы с фотоматериалами.",
+    eyebrow: "Направления работ",
+    title: "Выберите направление демонтажа",
+    description: "Подробно рассказываем о составе, этапах и факторах стоимости для разных промышленных объектов.",
     items: [
-      { title: "Демонтаж ангаров, складов и цехов", image: "/images/portfolio/industria-portfolio-04.jpg" },
-      { title: "Демонтаж многоэтажных зданий", image: "/images/cases/object-01-building-demolition/01.jpg" },
-      { title: "Демонтаж заводов, фабрик и предприятий", image: "/images/cases/object-02-industrial-height/01.jpg" },
-      { title: "Демонтаж металлоконструкций", image: "/images/portfolio/industria-portfolio-09.jpg" },
+      { title: "Демонтаж ангаров, складов и цехов", image: "/images/portfolio/industria-portfolio-04.jpg", href: "/services/hangars-warehouses-workshops" },
+      { title: "Демонтаж многоэтажных зданий", image: "/images/cases/object-01-building-demolition/01.jpg", href: "/services/multi-storey-demolition" },
+      { title: "Демонтаж заводов, фабрик и предприятий", image: "/images/cases/object-02-industrial-height/01.jpg", href: "/services/industrial-enterprises" },
+      { title: "Демонтаж металлоконструкций", image: "/images/portfolio/industria-portfolio-09.jpg", href: "/services/metal-structures" },
     ],
   },
   calculator: {

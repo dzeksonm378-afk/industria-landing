@@ -12,7 +12,7 @@ export type CaseStudy = {
   // TODO(content): заполнить только подтвержденными данными от Ильи.
   area?: string;
   duration?: string;
-  cost?: string;
+  price?: string;
   features?: string[];
   beforeImages?: string[];
   afterImages?: string[];
