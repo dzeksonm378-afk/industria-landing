@@ -9,49 +9,48 @@ export function HeroSection() {
   );
 
   return (
-    <section id="top" className="px-4 pb-16 pt-10 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+    <section id="top" className="px-4 pb-10 pt-6 sm:px-6 sm:pb-12 sm:pt-8 lg:px-8 lg:pb-16 lg:pt-12">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
         <div>
           <p className="mb-3 inline-flex rounded-sm border border-gold/25 bg-gold/10 px-3 py-1 text-sm font-semibold text-gold-soft shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
             {siteContent.hero.eyebrow}
           </p>
-          <h1 className="max-w-4xl text-4xl font-semibold leading-[1.04] text-mist sm:text-5xl lg:text-7xl">
+          <h1 className="max-w-4xl text-[2rem] font-semibold leading-[1.06] text-mist sm:text-5xl lg:text-6xl">
             {titleBeforeHighlight}
             <span className="text-gold-soft drop-shadow-[0_0_24px_rgba(200,155,60,0.22)]">{siteContent.hero.titleHighlight}</span>
             {titleAfterHighlight}
           </h1>
-          <div className="gold-divider mt-6 max-w-2xl" />
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-silver/80">{siteContent.hero.subtitle}</p>
+          <div className="gold-divider mt-4 max-w-2xl sm:mt-5" />
+          <p className="mt-4 max-w-3xl text-base leading-7 text-silver/80 sm:text-lg">{siteContent.hero.subtitle}</p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:max-w-2xl">
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3 lg:max-w-2xl">
             {siteContent.hero.badges.map((badge) => (
-              <div key={badge} className="metal-card rounded-md px-4 py-3 text-sm text-mist transition hover:border-gold/35">
+              <div key={badge} className="metal-card rounded-md px-3 py-2.5 text-xs leading-5 text-mist transition hover:border-gold/35 sm:px-4 sm:py-3 sm:text-sm">
                 {badge}
               </div>
             ))}
           </div>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={siteContent.hero.primaryCtaHref} aria-label="Перейти к предварительному расчету по фото">
+          <div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:gap-3">
+            <ButtonLink href={siteContent.hero.primaryCtaHref} className="px-3 sm:px-5" aria-label="Перейти к предварительному расчету по фото">
               {siteContent.hero.primaryCta}
             </ButtonLink>
-            <ButtonLink href={siteContent.hero.secondaryCtaHref} variant="secondary" aria-label="Перейти к примерам работ">
+            <ButtonLink href={siteContent.hero.secondaryCtaHref} variant="secondary" className="px-3 sm:px-5" aria-label="Перейти к примерам работ">
               {siteContent.hero.secondaryCta}
             </ButtonLink>
           </div>
 
-          <div className="mt-10 flex items-center gap-4 text-xs uppercase text-silver/55">
+          <div className="mt-6 hidden items-center gap-4 text-xs uppercase text-silver/55 sm:flex">
             <span className="h-px w-16 bg-gold/60" />
             <span>AI estimate / contract / CRM control</span>
           </div>
         </div>
 
-        <div className="grid gap-5">
-          <aside
-            className="industrial-surface min-h-64 rounded-lg border border-gold/25 p-5 shadow-premium sm:min-h-80 sm:p-6"
-            aria-label={siteContent.hero.visual.ariaLabel}
-          >
-            <div className="relative flex h-full min-h-52 flex-col justify-between gap-8 sm:min-h-64">
+        <aside
+          className="industrial-surface hidden min-h-[28rem] rounded-lg border border-gold/25 p-6 shadow-premium lg:block"
+          aria-label={siteContent.hero.visual.ariaLabel}
+        >
+            <div className="relative flex min-h-[25rem] flex-col justify-between gap-8">
               <div className="flex flex-wrap items-start justify-between gap-3 text-xs uppercase text-silver/70">
                 <div className="flex min-w-0 items-center gap-3">
                   <BrandLogoMark className="h-12 w-12" />
@@ -80,72 +79,7 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-          </aside>
-
-          <div id={siteContent.hero.contactCard.id} className="premium-panel scroll-mt-32 rounded-lg p-5 ring-1 ring-silver/5">
-            <div className="mb-5">
-              <p className="text-sm font-semibold uppercase text-gold-soft">{siteContent.hero.contactCard.eyebrow}</p>
-              <h2 className="mt-3 text-2xl font-semibold leading-tight text-mist">
-                {siteContent.hero.contactCard.title}
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-silver/75">{siteContent.hero.contactCard.text}</p>
-            </div>
-
-            <ol className="grid gap-3">
-              {siteContent.hero.contactCard.steps.map((step, index) => (
-                <li key={step} className="flex gap-3 rounded-md border border-silver/10 bg-ink/70 p-3 text-sm text-silver/75">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gold/30 bg-gold/10 text-xs font-semibold text-gold-soft">
-                    {index + 1}
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-
-            <ButtonLink
-              href={siteContent.hero.contactCard.aiCtaHref}
-              className="mt-5 w-full"
-              aria-label="Перейти к AI-предрасчету демонтажа по фото"
-            >
-              {siteContent.hero.contactCard.aiCtaLabel}
-            </ButtonLink>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {siteContent.company.contacts.people.map((person) => (
-                <div key={person.name} className="rounded-md border border-silver/10 bg-ink/70 p-3">
-                  <p className="text-sm font-semibold text-mist">{person.name}</p>
-                  <div className="mt-3 grid gap-2">
-                    <a
-                      href={person.telegramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={person.telegramAriaLabel}
-                      className="inline-flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-md border border-gold-soft/70 bg-gold-soft px-4 py-3 text-left text-sm font-semibold text-ink shadow-gold-soft transition hover:border-gold hover:bg-gold focus-visible:outline-gold-soft"
-                    >
-                      <span className="min-w-0">
-                        <span className="block">{person.telegramButtonLabel} <span aria-hidden="true">↗</span></span>
-                        <span className="mt-0.5 block truncate text-xs font-semibold text-ink/70">{person.telegramLabel}</span>
-                      </span>
-                      <span className="rounded-sm border border-ink/20 bg-ink/10 px-2 py-1 text-xs uppercase text-ink/75" aria-hidden="true">
-                        TG
-                      </span>
-                    </a>
-                    <a
-                      href={person.phoneHref}
-                      aria-label={person.phoneAriaLabel}
-                      className="inline-flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-md border border-gold/45 bg-card-soft/80 px-4 py-3 text-left text-sm font-semibold text-mist transition hover:border-gold-soft hover:bg-gold/15 focus-visible:outline-gold-soft"
-                    >
-                      <span className="min-w-0">
-                        <span className="block">{person.phoneButtonLabel}</span>
-                        <span className="mt-0.5 block truncate text-xs font-semibold text-silver/65">{person.phone}</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
     </section>
   );

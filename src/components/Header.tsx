@@ -53,7 +53,7 @@ export function Header({ homeHrefPrefix = "", mobileVariant = "default" }: Heade
               {siteContent.company.phone}
             </a>
             <a
-              href={getAnchorHref("#photo-estimate")}
+              href={getAnchorHref("#contacts")}
               className="rounded-md border border-silver/10 bg-card-soft/70 px-3 py-2 text-xs font-semibold text-silver/75 transition hover:border-gold/50 hover:text-mist"
               aria-label={siteContent.company.contactNote}
             >
